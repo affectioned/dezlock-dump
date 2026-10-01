@@ -1,5 +1,33 @@
 # dezlock-dump
 
+> ### Personal fork — patched for the current Deadlock build
+>
+> This is my own working copy of [dougwithseismic/dezlock-dump](https://github.com/dougwithseismic/dezlock-dump),
+> on the `combined` branch. Upstream `main` is from 2026-03-09 and no longer
+> extracts schema fields from Deadlock: a game update moved the schema class
+> descriptor so that `+0x18` now holds a pointer to the class name where
+> `m_nSizeOf` used to be, and every class comes back with a pointer-shaped size
+> and zero fields. The tagged releases are older still.
+>
+> This branch is upstream `main` with the open fix PRs cherry-picked on top:
+>
+> | Commit | Source | What it fixes |
+> |---|---|---|
+> | `fix: game update compatibility` | [PR #36](https://github.com/dougwithseismic/dezlock-dump/pull/36) by Artem Bronitckii | Per-class schema layout detection — restores field extraction |
+> | `Update Deadlock patterns for the 2026-09 build` | [PR #37](https://github.com/dougwithseismic/dezlock-dump/pull/37) by [@FallDownTheSystem](https://github.com/FallDownTheSystem) | Deadlock-specific global patterns (`dwLocalPlayerController`, `dwGlobalVars`, `dwFirstCUserCmdArray`, `dwGlowManager`) |
+> | `Guard the global scanner's pointer dereference` | PR #37 | Scanner crash on unguarded pointers near unmapped memory |
+> | `Find enum hashes whose entries are only in the free list` | PR #37 | Missing enums |
+>
+> All credit for the code and the fixes belongs to the upstream author and the
+> PR authors above — the commits keep their original authorship. I wrote none
+> of it; I only combined the branches and built it. Nothing else is changed.
+>
+> **No warranty.** This tracks whatever Deadlock build I last needed it for and
+> will go stale exactly the way upstream did. Use upstream once these PRs land
+> there.
+>
+> Everything below is the upstream README, unmodified.
+
 [![GitHub Release](https://img.shields.io/github/v/release/dougwithseismic/dezlock-dump?label=Version)](../../releases/latest)
 [![Build](https://img.shields.io/github/actions/workflow/status/dougwithseismic/dezlock-dump/build.yml?label=Build)](../../actions/workflows/build.yml)
 [![Discord](https://img.shields.io/discord/1469694564683088168?color=5865F2&logo=discord&logoColor=white&label=Discord)](https://discord.gg/sjcsVkE8ur)
